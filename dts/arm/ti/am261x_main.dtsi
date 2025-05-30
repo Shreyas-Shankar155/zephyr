@@ -1,0 +1,134 @@
+/*
+ * Copyright (c) 2025 Texas Instruments Incorporated
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <freq.h>
+#include <mem.h>
+#include <arm/armv7-r.dtsi>
+#include <zephyr/dt-bindings/memory-attr/memory-attr-arm.h>
+//#include <zephyr/dt-bindings/interrupt-controller/ti-vim.h>
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+    cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-r5";
+			reg = <0>;
+			clock-frequency = <DT_FREQ_M(400)>;
+		};
+	};
+
+	//defining system-clock as in some other cc32xx dts 
+	sysclk: system-clock {
+		compatible = "fixed-clock";
+		clock-frequency = <DT_FREQ_M(400)>;
+		#clock-cells = <0>;
+	};
+	
+	sram: memory@70080000 {
+		compatible = "zephyr,memory-region", "mmio-sram";
+		reg = <0x70080000 DT_SIZE_K(256)>;
+		zephyr,memory-region = "SRAM";
+	};
+
+	atcm: memory@78000000 {
+		device_type = "memory";
+		compatible = "zephyr,memory-region", "mmio-sram";
+		reg = <0x0 DT_SIZE_K(128)>;
+		zephyr,memory-region = "ATCM";
+		zephyr,memory-attr = <( DT_MEM_ARM(ATTR_MPU_RAM) )>;
+	};
+
+	btcm: memory@78100000 {
+		device_type = "memory";
+		compatible = "zephyr,memory-region", "mmio-sram";
+		reg = <0x41010000 DT_SIZE_K(128)>;
+		zephyr,memory-region = "BTCM";
+		zephyr,memory-attr = <( DT_MEM_ARM(ATTR_MPU_RAM) )>;
+	};
+
+
+	soc {
+		/* Add details for RTI too*/
+
+		// Refers to padconfig details??
+		/*
+		pinctrl: pinctrl@f4000 {
+			compatible = "ti,k3-pinctrl";
+			reg = <0xf4000 0x2ac>;
+			status = "disabled";
+		};
+		*/
+		uart0: uart@52300000 {
+			compatible = "ns16550";
+			reg = <0x52300000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart1: uart@52301000 {
+			compatible = "ns16550";
+			reg = <0x52301000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart2: uart@52302000 {
+			compatible = "ns16550";
+			reg = <0x52302000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart3: uart@52303000 {
+			compatible = "ns16550";
+			reg = <0x52303000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart4: uart@52304000 {
+			compatible = "ns16550";
+			reg = <0x52304000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart5: uart@52305000 {
+			compatible = "ns16550";
+			reg = <0x52305000 0x200>;
+			clock-frequency = <DT_FREQ_M(48)>;
+			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		gpio0: gpio@52000000 {
+			compatible = "ti,davinci-gpio";
+			reg = <0x52000000 0x100>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+
+		gpio1: gpio@52001000 {
+			compatible = "ti,davinci-gpio";
+			reg = <0x52001000 0x100>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			status = "disabled";
+		};
+	};
+};
