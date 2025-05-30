@@ -1,0 +1,6 @@
+board:
+  name: am261x_evm
+  full_name: TI AM261x-EVM
+  vendor: ti
+  socs:
+  - name: am261x
