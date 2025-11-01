@@ -1,0 +1,32 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&i2c0 {
+	status = "okay";
+	
+	ssd1306: ssd1306@3c {
+		compatible = "solomon,ssd1306fb";
+		reg = <0x3c>;
+		label = "SSD1306";
+		width = <128>;
+		height = <64>;
+        segment-offset  = <0>;
+        page-offset     = <0>;
+        display-offset  = <0x00>;
+        multiplex-ratio = <0x1F>;
+        prechargep      = <0xF1>;
+
+        // segment-remap;
+        com-invdir;
+        com-sequential;
+
+        status = "okay";
+	};	
+};
+
+/ {
+	chosen {
+		zephyr,display = &ssd1306;
+	};
+};
