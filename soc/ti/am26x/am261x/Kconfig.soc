@@ -40,7 +40,7 @@ config CORES_IN_LOCKSTEP_MODE
 		are operating in lockstep mode
 
 config EARLY_BOOT_IN_RAM
-	bool
+	bool "Forcibly relocate early boot APIs to RAM"
 	default y
 	help
 		Activate a linker script that forcibly relocates APIs needed for early boot to RAM.
