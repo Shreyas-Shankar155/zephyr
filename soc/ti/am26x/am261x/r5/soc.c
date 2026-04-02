@@ -13,7 +13,13 @@
 #include <common/ctrl_partitions.h>
 #include <common/clocks_configs.h>
 #include <common/xbar_configs.h>
+
+#ifdef CONFIG_EARLY_BOOT_IN_RAM
 #define SOC_EARLY_BOOT_ATTR __attribute__((section(".soc_early_boot")))
+#else
+#define SOC_EARLY_BOOT_ATTR
+#endif /* CONFIG_EARLY_BOOT_IN_RAM */
+
 
 #ifdef CONFIG_ARM_MPU
 extern void z_arm_mpu_init(void);
@@ -73,10 +79,12 @@ void cache_init(void)
 SOC_EARLY_BOOT_ATTR
 void soc_prep_hook(void)
 {
+#ifdef CONFIG_XIP
 #ifdef CONFIG_ARM_MPU
 	z_arm_mpu_init();
 	z_arm_configure_static_mpu_regions();
 #endif /* CONFIG_ARM_MPU */
+#endif /* CONFIG_XIP */
 	cache_init();
 }
 
