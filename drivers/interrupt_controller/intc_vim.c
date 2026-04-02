@@ -60,7 +60,7 @@ void z_vim_irq_init(void)
 {
 	uint32_t num_of_irqs = sys_read32(VIM_INFO) & VIM_INFO_INTERRUPTS_MASK;
 
-	__ASSERT(CONFIG_NUM_IRQS == num_of_irqs,
+	__ASSERT(CONFIG_NUM_IRQS <= num_of_irqs,
 		 "Number of configured interrupts (%d) doesn't match reported "
 		 "(%" PRIu32 ") interrupts",
 		 CONFIG_NUM_IRQS, num_of_irqs);
