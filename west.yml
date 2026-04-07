@@ -272,11 +272,6 @@ manifest:
       path: modules/hal/telink
       groups:
         - hal
-    - name: hal_ti
-      revision: cc049020152585c4e968b83c084d230234b6d852
-      path: modules/hal/ti
-      groups:
-        - hal
     - name: hal_wch
       revision: 6dd313768b5f4cc69baeac4ce6e59f2038eb8ce5
       path: modules/hal/wch
